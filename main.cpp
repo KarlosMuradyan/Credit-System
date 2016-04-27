@@ -5,16 +5,16 @@
 #include <time.h>
 using namespace std;
 
-
+int voronel(bloknot[], int);
 
 struct bloknot {
-	char anun[10];
-	char azganun[15];
+	string anun[10];
+	string azganun[10];
 	int tariq;
 	int heraxos;
 	bool ser;
 };
-int voronel(bloknot[], int);
+
 int admin()
 {
 	const int n = 100;
@@ -87,7 +87,7 @@ int main(){
         case 1: 
             cout<<"Input the password: ";
             cin>>passprint;
-            if(passprint == pass){
+            if(passprint == "pass"){
                 admin();
             }
             else{
