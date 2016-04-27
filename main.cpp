@@ -80,14 +80,13 @@ int user()
 int main(){
     int c; 
     string pass, passprint; 
-    pass = "1234";
     cout<< "Welcome to our program. If you are admin type 1, if you are user type 2: ";
     cin>>c;
     switch(c){
         case 1: 
             cout<<"Input the password: ";
             cin>>passprint;
-            if(passprint == "pass"){
+            if(passprint == "1234"){
                 admin();
             }
             else{
