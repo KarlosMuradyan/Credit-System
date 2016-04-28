@@ -4,7 +4,7 @@
 #include <iomanip>
 #include <time.h>
 using namespace std;
-
+//Changes by Anna;
 int voronel(bloknot[], int);
 
 struct bloknot {
