@@ -65,20 +65,20 @@ void add(Client* x, int &n){
 }
 
 int main(){
-    int a;
-    string password;
-    cout<< "Welcome to our program. If you are admin type - 1, if you are user type - 2: ";
-    cin>>a;
-    switch(a){
-        case 1:
-		cout<<"Input the password: ";
-		cin>>password;
-		if(password == "1234"){
-		    admin();
-		}
-		else{
-		cout<<"The password is incorrect"<<endl;
-		};
-	break;
+	int a;
+	string password;
+	cout<< "Welcome to our program. If you are admin type - 1, if you are user type - 2: ";
+	cin>>a;
+	switch(a){
+		case 1:
+			cout<<"Input the password: ";
+			cin>>password;
+			if(password == "1234"){
+				admin();
+			}
+			else{
+				cout<<"The password is incorrect"<<endl;
+			};
+		break;
 	}
 }
