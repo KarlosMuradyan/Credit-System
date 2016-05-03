@@ -37,8 +37,10 @@ int admin(){
 	                	cout << x.name << ' ' << x.surname << ' ' << x.loan << ' ' << x.duration_month << ' ' << endl;
 	                }break;
            	case 3: cout << "Enter the name of the client you want to delete" << endl;
-           		erase(Client* ,int&); break;
-           	case 4: print(list, n); break;
+           		int k;
+           		erase(Client* ,int & k); break;
+           	case 4: copy(clients_list, n); break;
+           	case 5: break;
 	        default:cout << " incorrect command"; break;
 	        }
 	}        
@@ -66,7 +68,7 @@ void add_client(Client* x, int &n){
     cin >> x[n].duration_month;
     n++;
 }
-void erase(Client* x, int &n){
+void erase(Client* x, int & n){
 	char temp[15];
 	cin >> temp;
 	int p = search(x, n, temp);
