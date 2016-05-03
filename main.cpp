@@ -92,7 +92,7 @@ void copy(Client* x, int n){
 int main(){
 	int a;
 	string password;
-	cout<< "Welcome to our program. If you are admin type - 1, if you are user type - 2: ";
+	cout<< "Welcome to our program. If you are admin type  1, if you are user type  2: ";
 	cin>>a;
 	switch(a){
 		case 1:
