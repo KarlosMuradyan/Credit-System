@@ -15,7 +15,7 @@ int search_client(Client[], int, char*);
 void add_client(Client*,int&);
 
 int admin(){
-	int n = 0, command = 0, p;
+	int n = 0, command = 0, search_command;
 	Client clients_list[100];
 
 	while (command!=5){
@@ -26,12 +26,12 @@ int admin(){
 		case 2: cout << "Enter name of a person you search ";
 	                char temp[15];
 	                cin >> temp;
-	                p = search_client(clients_list, n, temp);
-	                if (p == -1){
+	                search_command = search_client(clients_list, n, temp);
+	                if (search_command == -1){
 	        		cout << "There is no such person";
 	                }
 		 	else{
-	        		Client x = clients_list[p];
+	        		Client x = clients_list[search_command];
 	                	cout << x.name << ' ' << x.surname << ' ' << x.loan << ' ' << x.duration_month << ' ' << endl;
 	                }break;
            	case 3: cout << "Enter the name of the client you want to delete" << endl;
