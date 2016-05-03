@@ -13,6 +13,8 @@ struct Client{
 
 int search_client(Client[], int, char*);
 void add_client(Client*,int&);
+void erase(Client*,int&);
+void copy(Client*, int);
 
 int admin(){
 	int n = 0, command = 0, search_command;
@@ -35,7 +37,8 @@ int admin(){
 	                	cout << x.name << ' ' << x.surname << ' ' << x.loan << ' ' << x.duration_month << ' ' << endl;
 	                }break;
            	case 3: cout << "Enter the name of the client you want to delete" << endl;
-           	//erase( &n); break;case 4: print(list, n); break;*/
+           		erase(Client* ,int&); break;
+           	case 4: print(list, n); break;
 	        default:cout << " incorrect command"; break;
 	        }
 	}        
@@ -62,6 +65,28 @@ void add_client(Client* x, int &n){
     cout << "loan_duration: ";
     cin >> x[n].duration_month;
     n++;
+}
+void erase(Client* x, int &n){
+	char temp[15];
+	cin >> temp;
+	int p = search(x, n, temp);
+	if (p == -1){
+		cout<<"There is no such person\n";
+		return;
+	}
+}
+	for (int i = p; i < n - 1; i++){
+		strcpy_s(x[i].name,strlen(x[i].name)+1, x[i + 1].name);
+		strcpy_s(x[i].surname, strlen(x[i].surname)+1, x[i + 1].surname);
+		strcpy_s(x[i].loan, x[i + 1].loan);
+		x[i].loan_duration = x[i+1].duration_loan;
+	}
+	n--;
+}
+void copy(Client* x, int n){
+	for (int i = 0; i < n; i++){
+		cout << x[i].name << '\t' << x[i].surname << '\t' << x[i].loan << '\t' << x[i].duration_loan << '\n';
+	}
 }
 
 int main(){
