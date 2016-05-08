@@ -45,10 +45,10 @@ void read(Client list[]){
             auto person_info_array = explode(line, '|');
             
             // string str(person_info_array[0].begin(), person_info_array[0].end());
-            // list[i].name = str;
-            // list[i].surname = person_info_array[1];
-            // list[i].loan = stoi(person_info_array[2]);
-            // list[i].duration_month = stoi(person_info_array[3]);
+            list[i].name = person_info_array[0];
+            list[i].surname = person_info_array[1];
+            list[i].loan = stoi(person_info_array[2]);
+            list[i].duration_month = stoi(person_info_array[3]);
             i++;
         }
     }
