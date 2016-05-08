@@ -1,22 +1,76 @@
 #include <iostream>
 #include <string.h>
+#include <fstream>
+#include <cstring>
+#include <string>
+#include <vector>
+#include <sstream>
+#include <utility>
+
+
 using namespace std;
 
 struct Client{
-    char* name;
-    char* surname;
+    string name;
+    string surname;
     int  loan;
     int duration_month;
 };
 int search(Client[], int, char*);
-void add(Client*,int&);
+void add(Client [],int&);
+
+
+
+std::vector<std::string> explode(std::string const & s, char delim)
+{
+    std::vector<std::string> result;
+    std::istringstream iss(s);
+
+    for (std::string token; std::getline(iss, token, delim); )
+    {
+        result.push_back(std::move(token));
+    }
+
+    return result;
+}
+
+void read(Client list[]){
+    int i;
+    string line;
+    ifstream info ("new.txt");         //open a file
+    if(info.is_open()){                //checking the open status of file
+        i=0;
+        while(!info.eof()){            //checking if we reached to the end of a file
+            getline(info, line);       
+            auto person_info_array = explode(line, '|');
+            
+            // string str(person_info_array[0].begin(), person_info_array[0].end());
+            // list[i].name = str;
+            // list[i].surname = person_info_array[1];
+            // list[i].loan = stoi(person_info_array[2]);
+            // list[i].duration_month = stoi(person_info_array[3]);
+            i++;
+        }
+    }
+    else{
+        cout<<"false"<<endl;
+    }
+    info.close();
+    
+}
+
+
 
 int admin()
 {
-    int n = 0, k = 0, p;
+    
+    int n=0, k = 0, p;
     Client list[100];
     while (k!=5)
     {
+        
+        read(list);
+        cout<<"Here is the name: "<<list[1].name<<endl;
         cout << "1.add client, 2.search, 3.delete, 4.print, 5.end" << endl;
         cin >> k;
         switch (k)
@@ -44,13 +98,14 @@ int admin()
 }
 int search(Client x[], int n, char* name){
     for (int i = 0; i < n; i++)
-    if ((strcmp(x[i].name, name)==0))
+    if (x[i].name == name)
     return i;
     return -1;
 }
-void add(Client* x, int &n){
+void add(Client x[], int &n){
     x[n].name = new char[15];
-    x[n].surname= new char[15];
+    x[n].surname= new char[15];  
+    
     cout << "Name: ";
     cin >> x[n].name;
     cout << "Surname: ";
@@ -59,6 +114,14 @@ void add(Client* x, int &n){
     cin >> x[n].loan;
     cout << "loan_duration: ";
     cin >> x[n].duration_month;
+    
+    ofstream info("new.txt", ios_base::app);   //opening file for adding new info
+    info<<x[n].name<<" | ";
+    info<<x[n].surname<<" | ";
+    info<<x[n].loan<<" | ";
+    info<<x[n].duration_month<<endl;
+    info.close();
+    
     n++;
 }
 
@@ -68,15 +131,14 @@ void user(){
 
 int main(){
     int c;
-    string pass, passprint;
-    pass = "1234";
+    string passprint;
     cout<< "Welcome to our program. If you are admin type 1, if you are user type 2: ";
     cin>>c;
     switch(c){
         case 1:
             cout<<"Input the password: ";
             cin>>passprint;
-            if(passprint == pass){
+            if(passprint == "1234"){
                 admin();
             }
             else{
