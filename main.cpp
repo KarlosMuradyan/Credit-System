@@ -1,18 +1,15 @@
 #include <iostream>
-#include <string.h>
 #include <fstream>
-#include <cstring>
-#include <string>
 #include <vector>
 #include <sstream>
 #include <utility>
+#include <cassert>
 
-
-using namespace std;
+//using namespace std;
 
 struct Client{
-    string name;
-    string surname;
+    std::string name;
+    std::string surname;
     int  loan;
     int duration_month;
 };
@@ -36,13 +33,17 @@ std::vector<std::string> explode(std::string const & s, char delim)
 
 void read(Client list[]){
     int i;
-    string line;
-    ifstream info ("new.txt");         //open a file
+    std::string line;
+    std::ifstream info ("new.txt");         //open a file
     if(info.is_open()){                //checking the open status of file
         i=0;
-        while(!info.eof()){            //checking if we reached to the end of a file
-            getline(info, line);       
+        //while (!info.eof()) { //checking if we reached to the end of a file
+        while (! getline(info, line)) { //checking if we reached to the end of a file
             auto person_info_array = explode(line, '|');
+            if (4 > person_info_array.size()) {
+                std::cout << "Bad format of file" << std::endl;
+                break;
+            }
             
             // string str(person_info_array[0].begin(), person_info_array[0].end());
             list[i].name = person_info_array[0];
@@ -53,7 +54,7 @@ void read(Client list[]){
         }
     }
     else{
-        cout<<"false"<<endl;
+        std::cout<<"false"<<std::endl;
     }
     info.close();
     
@@ -70,28 +71,28 @@ int admin()
     {
         
         read(list);
-        cout<<"Here is the name: "<<list[1].name<<endl;
-        cout << "1.add client, 2.search, 3.delete, 4.print, 5.end" << endl;
-        cin >> k;
+        std::cout<<"Here is the name: "<<list[1].name<<std::endl;
+        std::cout << "1.add client, 2.search, 3.delete, 4.print, 5.end" << std::endl;
+        std::cin >> k;
         switch (k)
         {
             case 1: add(list, n); break;
-            case 2: cout << "Enter name of a person you search ";
+            case 2: std::cout << "Enter name of a person you search ";
             char temp[15];
-            cin >> temp;
+                    std::cin >> temp;
             p = search(list, n, temp);
             if (p == -1)
-            cout << "There is no such person";
+            std::cout << "There is no such person";
             else
             {
                 Client x = list[p];
-                cout << x.name << ' ' << x.surname << endl << " Loan Amount:" << x.loan <<endl<< " Duration in month:" << x.duration_month << 'n';
+                std::cout << x.name << ' ' << x.surname << std::endl << " Loan Amount:" << x.loan <<std::endl<< " Duration in month:" << x.duration_month << 'n';
             }
             break;
             case 5: break;
             /*case 3:erase( &n); break;
             case 4: print(list, n); break;*/
-            default:cout << "nermucel chisht hraman "; break;
+            default: std::cout << "nermucel chisht hraman "; break;
         }
     }
     return 0;
@@ -106,20 +107,20 @@ void add(Client x[], int &n){
     x[n].name = new char[15];
     x[n].surname= new char[15];  
     
-    cout << "Name: ";
-    cin >> x[n].name;
-    cout << "Surname: ";
-    cin >> x[n].surname;
-    cout << "amount_of_loan: ";
-    cin >> x[n].loan;
-    cout << "loan_duration: ";
-    cin >> x[n].duration_month;
+    std::cout << "Name: ";
+    std::cin >> x[n].name;
+    std::cout << "Surname: ";
+    std::cin >> x[n].surname;
+    std::cout << "amount_of_loan: ";
+    std::cin >> x[n].loan;
+    std::cout << "loan_duration: ";
+    std::cin >> x[n].duration_month;
     
-    ofstream info("new.txt", ios_base::app);   //opening file for adding new info
+    std::ofstream info("new.txt", std::ios_base::app);   //opening file for adding new info
     info<<x[n].name<<" | ";
     info<<x[n].surname<<" | ";
     info<<x[n].loan<<" | ";
-    info<<x[n].duration_month<<endl;
+    info<<x[n].duration_month<<std::endl;
     info.close();
     
     n++;
@@ -131,18 +132,18 @@ void user(){
 
 int main(){
     int c;
-    string passprint;
-    cout<< "Welcome to our program. If you are admin type 1, if you are user type 2: ";
-    cin>>c;
+    std::string passprint;
+    std::cout<< "Welcome to our program. If you are admin type 1, if you are user type 2: ";
+    std::cin>>c;
     switch(c){
         case 1:
-            cout<<"Input the password: ";
-            cin>>passprint;
+            std::cout<<"Input the password: ";
+            std::cin>>passprint;
             if(passprint == "1234"){
                 admin();
             }
             else{
-                cout<<"The password is incorrect"<<endl;
+                std::cout<<"The password is incorrect"<<std::endl;
             
             };
         break;
