@@ -38,19 +38,20 @@ void read(Client list[]){
     if(info.is_open()){                //checking the open status of file
         i=0;
         //while (!info.eof()) { //checking if we reached to the end of a file
-        while (! getline(info, line)) { //checking if we reached to the end of a file
+        while ( getline(info, line)) { //checking if we reached to the end of a file
             auto person_info_array = explode(line, '|');
             if (4 > person_info_array.size()) {
                 std::cout << "Bad format of file" << std::endl;
                 break;
             }
-            
+            else{
             // string str(person_info_array[0].begin(), person_info_array[0].end());
-            list[i].name = person_info_array[0];
-            list[i].surname = person_info_array[1];
-            list[i].loan = stoi(person_info_array[2]);
-            list[i].duration_month = stoi(person_info_array[3]);
-            i++;
+                list[i].name = person_info_array[0];
+                list[i].surname = person_info_array[1];
+                list[i].loan = stoi(person_info_array[2]);
+                list[i].duration_month = stoi(person_info_array[3]);
+                i++;
+            }
         }
     }
     else{
