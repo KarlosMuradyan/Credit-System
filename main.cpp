@@ -87,7 +87,7 @@ int admin()
             else
             {
                 Client x = list[p];
-                std::cout << x.name << ' ' << x.surname << std::endl << " Loan Amount:" << x.loan <<std::endl<< " Duration in month:" << x.duration_month << 'n';
+                std::cout << x.name << ' ' << x.surname << std::endl << " Loan Amount:" << x.loan <<std::endl<< " Duration in month:" << x.duration_month <<std::endl;
             }
             break;
             case 5: break;
@@ -112,15 +112,15 @@ void add(Client x[], int &n){
     std::cin >> x[n].name;
     std::cout << "Surname: ";
     std::cin >> x[n].surname;
-    std::cout << "amount_of_loan: ";
+    std::cout << "amount of loan AMD: ";
     std::cin >> x[n].loan;
-    std::cout << "loan_duration: ";
+    std::cout << "loan duration in months: ";
     std::cin >> x[n].duration_month;
     
     std::ofstream info("new.txt", std::ios_base::app);   //opening file for adding new info
-    info<<x[n].name<<" | ";
-    info<<x[n].surname<<" | ";
-    info<<x[n].loan<<" | ";
+    info<<x[n].name<<"|";
+    info<<x[n].surname<<"|";
+    info<<x[n].loan<<"|";
     info<<x[n].duration_month<<std::endl;
     info.close();
     
