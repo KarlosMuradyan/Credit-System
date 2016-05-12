@@ -4,6 +4,7 @@
 #include <sstream>
 #include <utility>
 #include <cassert>
+#include <string.h>
 
 //using namespace std;
 
@@ -16,6 +17,7 @@ struct Client{
 int search(Client[], int, char*);
 void add(Client [],int&);
 void print(Client [], int);
+void erase(Client [],int&);
 
 
 
@@ -32,7 +34,7 @@ std::vector<std::string> explode(std::string const & s, char delim)
     return result;
 }
 
-void read(Client list[]){
+int read(Client list[]){
     int i;
     std::string line;
     std::ifstream info ("new.txt");         //open a file
@@ -42,7 +44,7 @@ void read(Client list[]){
         while ( getline(info, line)) { //checking if we reached to the end of a file
             auto person_info_array = explode(line, '|');
             if (4 > person_info_array.size()) {
-                std::cout << "Bad format of file" << std::endl;
+                std::cout << "No any information in the text file yet. Firstly, please add clients." << std::endl;
                 break;
             }
             else{
@@ -59,7 +61,7 @@ void read(Client list[]){
         std::cout<<"false"<<std::endl;
     }
     info.close();
-    
+    return i;
 }
 
 
@@ -67,43 +69,49 @@ void read(Client list[]){
 int admin()
 {
     
-    int n=0, k = 0, p;
+    int n=0, k = 0, status_of_search;
     Client list[100];
     while (k!=5)
     {
         
-        read(list);
-        std::cout<<"Here is the name: "<<list[1].name<<std::endl;
+        n = read(list);
         std::cout << "1.add client, 2.search, 3.delete, 4.print, 5.end" << std::endl;
         std::cin >> k;
         switch (k)
         {
             case 1: add(list, n); break;
             case 2: std::cout << "Enter name of a person you search ";
-            char temp[15];
-                    std::cin >> temp;
-            p = search(list, n, temp);
-            if (p == -1)
-            std::cout << "There is no such person";
-            else
-            {
-                Client x = list[p];
-                std::cout << x.name << ' ' << x.surname << std::endl << " Loan Amount:" << x.loan <<std::endl<< " Duration in month:" << x.duration_month <<std::endl;
-            }
-            break;
-            case 3:erase( &n); break;
+                char temp[15];
+                std::cin >> temp;
+                std::cout<<"list 0 is "<<list[0].name<<".."<<std::endl;
+                std::cout<<"n is "<<n<<std::endl;
+                status_of_search = search(list, n, temp);
+                if (status_of_search == -1){
+                    std::cout << "There is no such person";
+                }
+                else
+                {
+                    Client x = list[status_of_search];
+                    std::cout << x.name << ' ' << x.surname << std::endl << " Loan Amount:" << x.loan <<std::endl<< " Duration in month:" << x.duration_month <<std::endl;
+                }
+                break;
             case 4: print(list, n); break;
             case 5: break;
-            default: std::cout << "your command is not correct"; break;
+            case 3:erase( list, n); break;
+            default: std::cout << "nermucel chisht hraman "; break;
         }
     }
     return 0;
 }
 int search(Client x[], int n, char* name){
-    for (int i = 0; i < n; i++)
-    if (x[i].name == name)
-    return i;
-    return -1;
+    for (int i = 0; i < n; i++){
+        if (x[i].name == name)
+        {
+            return i;
+        }
+    
+    return -1;}
+    
 }
 void add(Client x[], int &n){
     x[n].name = new char[15];
@@ -113,9 +121,9 @@ void add(Client x[], int &n){
     std::cin >> x[n].name;
     std::cout << "Surname: ";
     std::cin >> x[n].surname;
-    std::cout << "amount of loan AMD: ";
+    std::cout << "amount_of_loan: ";
     std::cin >> x[n].loan;
-    std::cout << "loan duration in months: ";
+    std::cout << "loan_duration: ";
     std::cin >> x[n].duration_month;
     
     std::ofstream info("new.txt", std::ios_base::app);   //opening file for adding new info
@@ -132,7 +140,35 @@ void print(Client x[], int n){
 		std::cout << x[i].name << '\t' << x[i].surname << '\t' << x[i].loan << '\t' << x[i].duration_month << '\n';
 	}
 }
-
+void erase(Client x[], int &n){
+    char temp[15];
+	std::cin >> temp;
+    int p = search(x, n, temp);
+	if (p == -1){
+		std::cout<<"There is no such person\n";
+	}
+	else{
+	    for (int i=p;i<n-1;i++)
+	    {
+	        x[i].name=x[i+1].name;
+	        x[i].surname=x[i+1].surname;
+	        x[i].loan=x[i + 1].loan;
+	        x[i].duration_month=x[i + 1].duration_month;
+	    }
+	   n--;
+    }
+    
+    std::ofstream info("new.txt");   //opening file for adding new info
+    for(int i=0; i<n; i++){
+        
+        info<<x[i].name<<"|";
+        info<<x[i].surname<<"|";
+        info<<x[i].loan<<"|";
+        info<<x[i].duration_month<<std::endl;
+       
+    }
+     info.close();
+}
 void user(){
     
 }
