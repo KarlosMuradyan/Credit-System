@@ -15,6 +15,7 @@ struct Client{
 };
 int search(Client[], int, char*);
 void add(Client [],int&);
+void print(Client [], int);
 
 
 
@@ -90,10 +91,10 @@ int admin()
                 std::cout << x.name << ' ' << x.surname << std::endl << " Loan Amount:" << x.loan <<std::endl<< " Duration in month:" << x.duration_month <<std::endl;
             }
             break;
+            case 3:erase( &n); break;
+            case 4: print(list, n); break;
             case 5: break;
-            /*case 3:erase( &n); break;
-            case 4: print(list, n); break;*/
-            default: std::cout << "nermucel chisht hraman "; break;
+            default: std::cout << "your command is not correct"; break;
         }
     }
     return 0;
@@ -125,6 +126,11 @@ void add(Client x[], int &n){
     info.close();
     
     n++;
+}
+void print(Client x[], int n){
+	for (int i = 0; i < n; i++){
+		std::cout << x[i].name << '\t' << x[i].surname << '\t' << x[i].loan << '\t' << x[i].duration_month << '\n';
+	}
 }
 
 void user(){
