@@ -13,6 +13,7 @@ struct Client{
     std::string surname;
     int  loan;
     int duration_month;
+    std::string password;
 };
 int search(Client[], int, char*);
 void add(Client [],int&);
@@ -43,7 +44,7 @@ int read(Client list[]){
         //while (!info.eof()) { //checking if we reached to the end of a file
         while ( getline(info, line)) { //checking if we reached to the end of a file
             auto person_info_array = explode(line, '|');
-            if (4 > person_info_array.size()) {
+            if (5 > person_info_array.size()) {
                 std::cout << "No any information in the text file yet. Firstly, please add clients." << std::endl;
                 break;
             }
@@ -51,8 +52,9 @@ int read(Client list[]){
             // string str(person_info_array[0].begin(), person_info_array[0].end());
                 list[i].name = person_info_array[0];
                 list[i].surname = person_info_array[1];
-                list[i].loan = stoi(person_info_array[2]);
-                list[i].duration_month = stoi(person_info_array[3]);
+                list[i].password = person_info_array[2];
+                list[i].loan = stoi(person_info_array[3]);
+                list[i].duration_month = stoi(person_info_array[4]);
                 i++;
             }
         }
@@ -92,7 +94,7 @@ int admin()
                 else
                 {
                     Client x = list[status_of_search];
-                    std::cout << x.name << ' ' << x.surname << std::endl << " Loan Amount:" << x.loan <<std::endl<< " Duration in month:" << x.duration_month <<std::endl;
+                    std::cout << x.name << ' ' << x.surname << std::endl << "Your password is: "<<x.password<< std::endl<< " Loan Amount:" << x.loan <<std::endl<< " Duration in month:" << x.duration_month <<std::endl;
                 }
                 break;
             case 4: print(list, n); break;
@@ -106,11 +108,9 @@ int admin()
 int search(Client x[], int n, char* name){
     for (int i = 0; i < n; i++){
         if (x[i].name == name)
-        {
             return i;
-        }
-    
-    return -1;}
+    }
+    return -1;
     
 }
 void add(Client x[], int &n){
@@ -121,14 +121,18 @@ void add(Client x[], int &n){
     std::cin >> x[n].name;
     std::cout << "Surname: ";
     std::cin >> x[n].surname;
+    std::cout<<"Password: ";
+    std::cin>>x[n].password;
     std::cout << "amount_of_loan: ";
     std::cin >> x[n].loan;
     std::cout << "loan_duration: ";
     std::cin >> x[n].duration_month;
     
+    
     std::ofstream info("new.txt", std::ios_base::app);   //opening file for adding new info
     info<<x[n].name<<"|";
     info<<x[n].surname<<"|";
+    info<<x[n].password<<"|";
     info<<x[n].loan<<"|";
     info<<x[n].duration_month<<std::endl;
     info.close();
@@ -137,7 +141,7 @@ void add(Client x[], int &n){
 }
 void print(Client x[], int n){
 	for (int i = 0; i < n; i++){
-		std::cout << x[i].name << '\t' << x[i].surname << '\t' << x[i].loan << '\t' << x[i].duration_month << '\n';
+		std::cout << x[i].name << '\t' << x[i].surname << '\t'<<x[i].password<< '\t'<< x[i].loan << '\t' << x[i].duration_month << '\n';
 	}
 }
 void erase(Client x[], int &n){
@@ -152,6 +156,7 @@ void erase(Client x[], int &n){
 	    {
 	        x[i].name=x[i+1].name;
 	        x[i].surname=x[i+1].surname;
+	        x[i].password=x[i+1].password;
 	        x[i].loan=x[i + 1].loan;
 	        x[i].duration_month=x[i + 1].duration_month;
 	    }
@@ -163,6 +168,7 @@ void erase(Client x[], int &n){
         
         info<<x[i].name<<"|";
         info<<x[i].surname<<"|";
+        info<<x[i].password<<"|";
         info<<x[i].loan<<"|";
         info<<x[i].duration_month<<std::endl;
        
@@ -191,6 +197,7 @@ int main(){
             };
         break;
         
-        case 2:user();
+        case 2:user()
+        ;
     }
 }
