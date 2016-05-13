@@ -6,8 +6,6 @@
 #include <cassert>
 #include <string.h>
 
-//using namespace std;
-
 struct Client{
     std::string name;
     std::string surname;
@@ -119,10 +117,17 @@ void add(Client x[], int &n){
     std::cin >> x[n].surname;
     std::cout<<"Password: ";
     std::cin>>x[n].password;
-    std::cout << "amount_of_loan: ";
+    std::cout << "amount_of_loan_AMD: ";
     std::cin >> x[n].loan;
-    std::cout << "loan_duration: ";
+    std::cout << "loan_duration_month: ";
     std::cin >> x[n].duration_month;
+    x[n].monthly_payment=x[n].loan/x[n].duration_month;
+    std::cout<<"Your monthly payment is: ";
+    std::cout <<x[n].monthly_payment<<"AMD "<<std::endl;
+    x[n].monthly_percentage=5+x[n].duration_month/12;
+    std::cout<<"Your monthly percentage is: ";
+    std::cout<< x[n].monthly_percentage<<"%"<<std::endl;
+
     
     
     std::ofstream info("new.txt", std::ios_base::app);   //opening file for adding new info
@@ -137,7 +142,7 @@ void add(Client x[], int &n){
 }
 void print(Client x[], int n){
 	for (int i = 0; i < n; i++){
-		std::cout << x[i].name << '\t' << x[i].surname << '\t'<<x[i].password<< '\t'<< x[i].loan << '\t' << x[i].duration_month << '\n';
+		std::cout << x[i].name << '\t' << x[i].surname << '\t'<<x[i].password<< '\t'<< x[i].loan << '\t' << x[i].duration_month << x[i].monthly_payment<<'\t'<< x[i].monthly_percentage<<'\n';
 	}
 }
 void erase(Client x[], int &n){
@@ -155,6 +160,8 @@ void erase(Client x[], int &n){
 	        x[i].password=x[i+1].password;
 	        x[i].loan=x[i + 1].loan;
 	        x[i].duration_month=x[i + 1].duration_month;
+	        x[i].monthly_payment=x[i+1].monthly_payment;
+                x[i].monthly_percentage=x[i+1].monthly_percentage;
 	    }
 	   n--;
     }
@@ -166,7 +173,10 @@ void erase(Client x[], int &n){
         info<<x[i].surname<<"|";
         info<<x[i].password<<"|";
         info<<x[i].loan<<"|";
-        info<<x[i].duration_month<<std::endl;
+        info<<x[i].duration_month<<"|";
+        info<<x[i].monthly_payment<<"|";
+        info<<x[i].monthly_percentage<<std::endl;
+
        
     }
      info.close();
