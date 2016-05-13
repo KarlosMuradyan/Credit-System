@@ -13,6 +13,8 @@ struct Client{
     std::string surname;
     int  loan;
     int duration_month;
+    int monthly_payment;
+    int monthly_percentage;
     std::string password;
 };
 int search(Client[], int, char*);
