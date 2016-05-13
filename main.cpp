@@ -181,8 +181,63 @@ void erase(Client x[], int &n){
     }
      info.close();
 }
+
 void user(){
-    
+    Client x[100];
+    int n;
+    n = read(x);
+    std::string u_name, u_surn, u_pass;
+    std::cout<<"Please insert your name: ";
+    std::cin>>u_name;
+    for(int i=0; i<n; i++){
+        if(u_name == x[i].name){
+            std::cout<<"Please insert your surname: ";
+            std::cin>>u_surn;
+                if(u_surn == x[i].surname){
+                    std::cout<<"Please insert your password: ";
+                    std::cin>>u_pass;
+                    if(u_pass == x[i].password){
+                        int choice;
+                        while(choice !=3){
+                            std::cout<<"1.See the information  2.Create a Request  3.Log out"<<std::endl;
+                            std::cin>>choice;
+                            switch(choice){
+                                case 1:
+                                    	std::cout << x[i].name << '\t' << x[i].surname << '\t'<<x[i].password<< '\t'<< x[i].loan << '\t' << x[i].duration_month << x[i].monthly_payment<<'\t'<< x[i].monthly_percentage<<'\n';
+                                        break;
+                                case 2:
+                                    int tp;
+                                    std::cout<<"What you want to do: 1.Expand the loan   2.Extend the duration"<<std::endl;
+                                    std::cin>>tp;
+                                    if(tp == 1 || tp==2 ){
+                                        
+                                        std::string message;
+                                        std::cout<<"Please insert your request:"<<std::endl;
+                                        std::cin>>message;
+                                        std::cout<<"Your Request has been sent. Please wait for responce. "<<std::endl;
+                                    }
+                                    else{
+                                        std::cout<<"You need to either print 1 or 2."<<std::endl;
+                                    }
+                                    break;
+                                case 3: break;    
+                                default:
+                                    break;
+                            }
+                        }
+                    }
+                    else{
+                        std::cout<<"The password is not correct. "<<std::endl;
+                    }
+                }
+                else{
+                    std::cout<<"There is no such person with your written name and surname in our data base. "<<std::endl;
+                }
+        }
+        else if(i==n-1){
+            std::cout<<"There is no person with your name."<<std::endl;
+        }
+    }
 }
 
 int main(){
@@ -203,7 +258,11 @@ int main(){
             };
         break;
         
-        case 2:user()
-        ;
+        case 2:
+        	user();
+        	break;
+        
+        default:
+        	break;
     }
 }
