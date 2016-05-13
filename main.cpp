@@ -85,33 +85,27 @@ int admin()
             case 2: std::cout << "Enter name of a person you search ";
                 char temp[15];
                 std::cin >> temp;
-                std::cout<<"list 0 is "<<list[0].name<<".."<<std::endl;
-                std::cout<<"n is "<<n<<std::endl;
-                status_of_search = search(list, n, temp);
-                if (status_of_search == -1){
-                    std::cout << "There is no such person";
-                }
-                else
-                {
-                    Client x = list[status_of_search];
-                    std::cout << x.name << ' ' << x.surname << std::endl << "Your password is: "<<x.password<< std::endl<< " Loan Amount:" << x.loan <<std::endl<< " Duration in month:" << x.duration_month <<std::endl;
-                }
-                break;
+                search(list, n, temp);break;
+            case 3:erase( list, n); break;
             case 4: print(list, n); break;
             case 5: break;
-            case 3:erase( list, n); break;
-            default: std::cout << "nermucel chisht hraman "; break;
+            default: std::cout << "Enter right command"; break;
         }
     }
     return 0;
 }
 int search(Client x[], int n, char* name){
-    for (int i = 0; i < n; i++){
+      bool temp=false;
+    	for (int i = 0; i < n; i++)
         if (x[i].name == name)
-            return i;
-    }
-    return -1;
-    
+        {
+           temp=true;
+            std::cout << "Name Surname:"<<x[i].name <<' '<< x[i].surname <<std::endl <<"Your password is: "<<x[i].password<<std::endl<< "Loan Amount:" << x[i].loan <<std::endl<<"Duration in month:" << x[i].duration_month <<std::endl<<"Your monthly payment is: "<<x[i].monthly_payment<<" AMD"<<std::endl<<"Your monthly percentage is: "<<x[i].monthly_percentage<<"%"<<std::endl;
+        }
+        if (!temp) 
+        std::cout<<"There is no such person\n";
+    return 0;
+ 
 }
 void add(Client x[], int &n){
     x[n].name = new char[15];
