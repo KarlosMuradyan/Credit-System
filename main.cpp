@@ -142,7 +142,7 @@ void add(Client x[], int &n){
 }
 void print(Client x[], int n){
 	for (int i = 0; i < n; i++){
-		std::cout << x[i].name << '\t' << x[i].surname << '\t'<<x[i].password<< '\t'<< x[i].loan << '\t' << x[i].duration_month << x[i].monthly_payment<<'\t'<< x[i].monthly_percentage<<'\n';
+		std::cout << x[i].name << '\t' << x[i].surname << '\t'<<x[i].password<< '\t'<< x[i].loan <<" AMD"<< '\t' << x[i].duration_month<<"months"<<'\t' << x[i].monthly_payment<<" AMD"<<'\t'<< x[i].monthly_percentage<<" %"<<'\n';
 	}
 }
 void erase(Client x[], int &n){
