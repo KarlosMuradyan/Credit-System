@@ -55,6 +55,8 @@ int read(Client list[]){
                 list[i].password = person_info_array[2];
                 list[i].loan = stoi(person_info_array[3]);
                 list[i].duration_month = stoi(person_info_array[4]);
+                list[i].monthly_payment = stoi(person_info_array[5]);
+                list[i].monthly_percentage = stoi(person_info_array[6]);
                 i++;
             }
         }
@@ -177,7 +179,7 @@ void erase(Client x[], int &n){
 	        x[i].loan=x[i + 1].loan;
 	        x[i].duration_month=x[i + 1].duration_month;
 	        x[i].monthly_payment=x[i+1].monthly_payment;
-                x[i].monthly_percentage=x[i+1].monthly_percentage;
+            x[i].monthly_percentage=x[i+1].monthly_percentage;
 	    }
 	   n--;
     }
@@ -219,7 +221,7 @@ void user(){
                             std::cin>>choice;
                             switch(choice){
                                 case 1:
-                                    	std::cout << x[i].name << '\t' << x[i].surname << '\t'<<x[i].password<< '\t'<< x[i].loan << '\t' << x[i].duration_month <<'\t' << x[i].monthly_payment<<'\t'<< x[i].monthly_percentage<<'\n';
+                                    	std::cout << x[i].name << '\t' << x[i].surname << '\t'<<x[i].password<< '\t'<< x[i].loan <<" AMD"<< '\t' << x[i].duration_month<<"months"<<'\t' << x[i].monthly_payment<<" AMD"<<'\t'<< x[i].monthly_percentage<<" %"<<'\n';
                                         break;
                                 case 2:
                                     int tp;
