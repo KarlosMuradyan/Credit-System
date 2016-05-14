@@ -203,7 +203,7 @@ void user(){
                             std::cin>>choice;
                             switch(choice){
                                 case 1:
-                                    	std::cout << x[i].name << '\t' << x[i].surname << '\t'<<x[i].password<< '\t'<< x[i].loan << '\t' << x[i].duration_month << x[i].monthly_payment<<'\t'<< x[i].monthly_percentage<<'\n';
+                                    	std::cout << x[i].name << '\t' << x[i].surname << '\t'<<x[i].password<< '\t'<< x[i].loan << '\t' << x[i].duration_month <<'\t' << x[i].monthly_payment<<'\t'<< x[i].monthly_percentage<<'\n';
                                         break;
                                 case 2:
                                     int tp;
