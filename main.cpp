@@ -149,7 +149,9 @@ void add(Client x[], int &n){
     info<<x[n].surname<<"|";
     info<<x[n].password<<"|";
     info<<x[n].loan<<"|";
-    info<<x[n].duration_month<<std::endl;
+    info<<x[n].duration_month<<"|";
+    info<<x[n].monthly_payment<<"|";
+    info<<x[n].monthly_percentage<<std::endl;
     info.close();
     
     n++;
