@@ -15,7 +15,7 @@ struct Client{
     int monthly_percentage;
     std::string password;
 };
-int search(Client[], int, char*);
+int search(Client[],int,  int, char*);
 void add(Client [],int&);
 void print(Client [], int);
 void erase(Client [],int&);
@@ -82,10 +82,21 @@ int admin()
         switch (k)
         {
             case 1: add(list, n); break;
-            case 2: std::cout << "Enter name of a person you search ";
+            case 2:  
+                {std::cout << "Enter name of a person you search ";
                 char temp[15];
                 std::cin >> temp;
-                search(list, n, temp);break;
+                int ind = 0;
+                ind = search(list, ind, n, temp);
+                while(ind !=-1){
+                     std::cout << "Name Surname:"<<list[ind].name <<' '<< list[ind].surname <<std::endl <<"Your password is: "<<list[ind].password<<std::endl<< "Loan Amount:" <<list[ind].loan <<std::endl<<"Duration in month:" << list[ind].duration_month <<std::endl<<"Your monthly payment is: "<<list[ind].monthly_payment<<" AMD"<<std::endl<<"Your monthly percentage is: "<<list[ind].monthly_percentage<<"%"<<std::endl;
+                    //  if(ind < n-1){
+                         ind = search(list, ind+1, n, temp);
+                    //  }
+                    //  std::cout<<ind;
+                }
+                break;
+                }
             case 3:erase( list, n); break;
             case 4: print(list, n); break;
             case 5: break;
@@ -94,17 +105,20 @@ int admin()
     }
     return 0;
 }
-int search(Client x[], int n, char* name){
-      bool temp=false;
-    	for (int i = 0; i < n; i++)
-        if (x[i].name == name)
-        {
-           temp=true;
-            std::cout << "Name Surname:"<<x[i].name <<' '<< x[i].surname <<std::endl <<"Your password is: "<<x[i].password<<std::endl<< "Loan Amount:" << x[i].loan <<std::endl<<"Duration in month:" << x[i].duration_month <<std::endl<<"Your monthly payment is: "<<x[i].monthly_payment<<" AMD"<<std::endl<<"Your monthly percentage is: "<<x[i].monthly_percentage<<"%"<<std::endl;
+int search(Client x[],int s, int n, char* name){
+        bool res = false;
+    	for (int i = s; i < n; i++){
+            if (x[i].name == name)
+            {
+                
+                res = true;
+                return i;
+            }
+            
+    	}
+    	if(res == false){
+                return -1;
         }
-        if (!temp) 
-        std::cout<<"There is no such person\n";
-    return 0;
  
 }
 void add(Client x[], int &n){
@@ -148,7 +162,7 @@ void print(Client x[], int n){
 void erase(Client x[], int &n){
     char temp[15];
 	std::cin >> temp;
-    int p = search(x, n, temp);
+    int p = search(x,0, n, temp);
 	if (p == -1){
 		std::cout<<"There is no such person\n";
 	}
